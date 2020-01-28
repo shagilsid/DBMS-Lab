@@ -192,10 +192,10 @@ Joyce           English
          2
          3
          
-11. select name from instructor where dept_name like '%co%';
+11. select name from instructor where dept_name like '%Co%';
 
 1. 
-select title from course where credits=3 and dept_name='Comp. Sci';
+select title from course where credits=3 and dept_name='Comp.Sci';
 2. 
 select max(salary) from instructor;
 3. 
