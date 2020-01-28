@@ -1,0 +1,195 @@
+SELECT SSN FROM EMPLOYEE;
+
+SSN
+---------
+123456789
+333445555
+453453453
+888665555
+987654321
+987987987
+999887777
+
+7 rows selected.
+
+SQL> SELECT E.SSN, D.DNAME FROM EMPLOYEE E, DEPARTMENT D;
+
+SSN       DNAME
+--------- ---------------
+123456789 Administration
+333445555 Administration
+453453453 Administration
+888665555 Administration
+987654321 Administration
+987987987 Administration
+999887777 Administration
+123456789 Headquarters
+333445555 Headquarters
+453453453 Headquarters
+888665555 Headquarters
+
+SSN       DNAME
+--------- ---------------
+987654321 Headquarters
+987987987 Headquarters
+999887777 Headquarters
+123456789 Research
+333445555 Research
+453453453 Research
+888665555 Research
+987654321 Research
+987987987 Research
+999887777 Research
+
+SELECT * FROM EMPLOYEE WHERE DNO=5;
+
+FNAME           M LNAME           SSN       BDATE
+--------------- - --------------- --------- ---------
+ADDRESS                        S     SALARY SUPERSSN         DNO   PHONE_NO
+------------------------------ - ---------- --------- ---------- ----------
+Franklin        T Wong            333445555 08-DEC-55
+Houston,TX                     M      40000 888665555          5    7335688
+
+John            B Smith           123456789 09-JAN-65
+Houston,TX                     M      30000 333445555          5    1235688
+
+Joyce           A English         453453453 31-JUL-72
+Houston, TX                    F      25000 333445555          5    8885688
+
+SELECT * FROM EMPLOYEE, DEPARTMENT WHERE EMPLOYEE.DNO=(SELECT DNUMBER FROM DEPARTMENT WHERE DNAME='Research');
+
+FNAME           M LNAME           SSN       BDATE
+--------------- - --------------- --------- ---------
+ADDRESS                        S     SALARY SUPERSSN         DNO   PHONE_NO
+------------------------------ - ---------- --------- ---------- ----------
+DNAME              DNUMBER MGRSSN    MGRSTARTD
+--------------- ---------- --------- ---------
+Franklin        T Wong            333445555 08-DEC-55
+Houston,TX                     M      40000 888665555          5    7335688
+Research                 5 333445555 22-MAY-78
+
+Franklin        T Wong            333445555 08-DEC-55
+Houston,TX                     M      40000 888665555          5    7335688
+Administration           4 987654321 01-JAN-85
+
+FNAME           M LNAME           SSN       BDATE
+--------------- - --------------- --------- ---------
+ADDRESS                        S     SALARY SUPERSSN         DNO   PHONE_NO
+------------------------------ - ---------- --------- ---------- ----------
+DNAME              DNUMBER MGRSSN    MGRSTARTD
+--------------- ---------- --------- ---------
+
+Franklin        T Wong            333445555 08-DEC-55
+Houston,TX                     M      40000 888665555          5    7335688
+Headquarters             1 888665555 19-JUN-71
+
+John            B Smith           123456789 09-JAN-65
+Houston,TX                     M      30000 333445555          5    1235688
+
+FNAME           M LNAME           SSN       BDATE
+--------------- - --------------- --------- ---------
+ADDRESS                        S     SALARY SUPERSSN         DNO   PHONE_NO
+------------------------------ - ---------- --------- ---------- ----------
+DNAME              DNUMBER MGRSSN    MGRSTARTD
+--------------- ---------- --------- ---------
+Research                 5 333445555 22-MAY-78
+
+John            B Smith           123456789 09-JAN-65
+Houston,TX                     M      30000 333445555          5    1235688
+Administration           4 987654321 01-JAN-85
+
+John            B Smith           123456789 09-JAN-65
+
+FNAME           M LNAME           SSN       BDATE
+--------------- - --------------- --------- ---------
+ADDRESS                        S     SALARY SUPERSSN         DNO   PHONE_NO
+------------------------------ - ---------- --------- ---------- ----------
+DNAME              DNUMBER MGRSSN    MGRSTARTD
+--------------- ---------- --------- ---------
+Houston,TX                     M      30000 333445555          5    1235688
+Headquarters             1 888665555 19-JUN-71
+
+Joyce           A English         453453453 31-JUL-72
+Houston, TX                    F      25000 333445555          5    8885688
+Research                 5 333445555 22-MAY-78
+
+
+FNAME           M LNAME           SSN       BDATE
+--------------- - --------------- --------- ---------
+ADDRESS                        S     SALARY SUPERSSN         DNO   PHONE_NO
+------------------------------ - ---------- --------- ---------- ----------
+DNAME              DNUMBER MGRSSN    MGRSTARTD
+--------------- ---------- --------- ---------
+Joyce           A English         453453453 31-JUL-72
+Houston, TX                    F      25000 333445555          5    8885688
+Administration           4 987654321 01-JAN-85
+
+Joyce           A English         453453453 31-JUL-72
+Houston, TX                    F      25000 333445555          5    8885688
+Headquarters             1 888665555 19-JUN-71
+
+FNAME           M LNAME           SSN       BDATE
+--------------- - --------------- --------- ---------
+ADDRESS                        S     SALARY SUPERSSN         DNO   PHONE_NO
+------------------------------ - ---------- --------- ---------- ----------
+DNAME              DNUMBER MGRSSN    MGRSTARTD
+--------------- ---------- --------- ---------
+
+
+9 rows selected.
+
+select p.pnumber, d.dnumber, e.lname, e.address, e.bdate from project p, dept_locations d, employee e where d.dlocation='Stafford' and p.plocation=d.dlocation and d.dnumber=p.dnum and e.dno=d.dnumber;
+
+   PNUMBER    DNUMBER LNAME           ADDRESS                        BDATE
+---------- ---------- --------------- ------------------------------ ---------
+        30          4 Wallace         Bellaire,TX                    20-JUN-41
+        10          4 Wallace         Bellaire,TX                    20-JUN-41
+        30          4 Zelaya          Spring,TX                      19-JUL-68
+        10          4 Zelaya          Spring,TX                      19-JUL-68
+        30          4 Jabbar          Houston,TX                     29-MAR-69
+        10          4 Jabbar          Houston,TX                     29-MAR-69
+
+6 rows selected.
+
+select d1.fname, d1.lname, d2.fname, d2.lname FROM employee d1,employee d2 where d1.superssn=d2.ssn;
+
+FNAME           LNAME           FNAME           LNAME
+--------------- --------------- --------------- ---------------
+Jennifer        Wallace         James           Borg
+Franklin        Wong            James           Borg
+Joyce           English         Franklin        Wong
+John            Smith           Franklin        Wong
+Ahmad           Jabbar          Jennifer        Wallace
+Alicia          Zelaya          Jennifer        Wallace
+
+6 rows selected.																
+
+select distinct e.fname, e.lname  from employee e, project p, works_on w where e.dno=p.dnum and p.pnumber=(select pnumber from project where pname='ProductX') and w.hours>10 and e.ssn=w.essn;
+
+FNAME           LNAME
+--------------- ---------------
+Joyce           English
+John            Smith
+
+select fname, lname from employee e, dependent d where e.ssn=d.essn and e.fname=d.dependent_name;
+
+no rows selected
+
+
+SQL> select fname, lname from employee e where e.superssn=(select ssn from employee where fname='Franklin' and lname='Wong');
+
+FNAME           LNAME
+--------------- ---------------
+John            Smith
+Joyce           English
+
+
+ select distinct pnumber from project p, employee e, works_on w where p.dnum=e.dno and e.lname='Smith' and e.ssn=w.essn;
+
+   PNUMBER
+----------
+         1
+         2
+         3
+         
+
