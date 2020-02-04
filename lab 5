@@ -1,0 +1,3 @@
+ CREATE VIEW PHYSICS_FALL_2009 AS( SELECT S.COURSE_ID, S.SEC_ID, S.BUILDING, S.ROOM_NUMBER FROM SECTION S, COURSE C WHERE C.DEPT_NAME='Physics' and s.semester='Fall' and year='2009' and c.course_id=s.course_id);
+ create view department_total_salary as (select dept_name, sum(salary) as sum_sal from instructor group by (dept_name));
+ 
